@@ -13,7 +13,7 @@ export function SectionHeading({
   dark?: boolean;
   className?: string;
 }) {
-  const eyebrowColor = dark ? "var(--color-ink-panel)" : "var(--color-red)";
+  const eyebrowColor = dark ? "#ffffff" : "var(--color-red)";
   return (
     <div
       className={`max-w-2xl ${align === "center" ? "mx-auto text-center" : ""} ${className ?? ""}`}
