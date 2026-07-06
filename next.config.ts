@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  /* Cloudflare Pages preview: static export (no Node server needed).
+     Remove `output: "export"` and `images.unoptimized` when moving to a
+     Node host (e.g. Hostinger) that can run `next start`. */
+  output: "export",
+  images: {
+    unoptimized: true,
+  },
 };
 
 export default nextConfig;
