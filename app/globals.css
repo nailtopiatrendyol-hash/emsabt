@@ -101,6 +101,14 @@ h1, h2, h3, h4 {
   animation: grid-drift 18s linear infinite;
 }
 
+.network-bg-grid-dark {
+  background-image:
+    linear-gradient(to right, rgba(23, 24, 28, 0.14) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(23, 24, 28, 0.14) 1px, transparent 1px);
+  background-size: 64px 64px;
+  animation: grid-drift 18s linear infinite;
+}
+
 .network-bg-node {
   transform-origin: center;
   transform-box: fill-box;
@@ -112,24 +120,11 @@ h1, h2, h3, h4 {
   animation: line-flow 3.5s linear infinite;
 }
 
-.hero-photo-kenburns {
-  animation: kenburns 22s ease-in-out infinite alternate;
-}
-
 .hero-glow {
   animation: glow-drift 14s ease-in-out infinite;
 }
 
-@keyframes float-y {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-14px); }
-}
-
-.hero-float {
-  animation: float-y 3.8s ease-in-out infinite;
-}
-
-/* entrance / crossfade animations (pure CSS — no JS animation engine needed) */
+/* entrance / ambient animations (pure CSS — no JS animation engine needed) */
 
 @keyframes fade-up-in {
   from { opacity: 0; transform: translateY(22px); }
@@ -140,44 +135,58 @@ h1, h2, h3, h4 {
   animation: fade-up-in 0.6s ease-out both;
 }
 
-@keyframes showcase-in {
-  from { opacity: 0; transform: translateY(26px) scale(0.85); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+@keyframes printer-fly-in {
+  0% { opacity: 0; transform: translateY(160px) scale(0.55) rotate(-10deg); }
+  55% { opacity: 1; transform: translateY(-22px) scale(1.06) rotate(3deg); }
+  75% { transform: translateY(8px) scale(0.99) rotate(-1.5deg); }
+  90% { transform: translateY(-3px) scale(1.01); }
+  100% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
 }
 
-.animate-showcase-in {
-  animation: showcase-in 0.55s ease-out both;
+@keyframes printer-idle-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-9px) rotate(0.6deg); }
 }
 
-@keyframes showcase-frame-in {
-  from { opacity: 0; transform: scale(0.92); }
-  to { opacity: 1; transform: scale(1); }
+@keyframes spark-rise {
+  0% { opacity: 0; transform: translateY(0) scale(0.5); }
+  12% { opacity: 1; }
+  85% { opacity: 0.6; }
+  100% { opacity: 0; transform: translateY(-180px) scale(1.15); }
 }
 
-.animate-showcase-frame-in {
-  animation: showcase-frame-in 0.7s ease-out both;
+.animate-spark {
+  animation: spark-rise linear infinite;
 }
 
-@keyframes peek-in {
-  from { opacity: 0; }
-  to { opacity: 0.32; }
+@keyframes shimmer-sweep {
+  0% { transform: translateX(-140%) skewX(-15deg); }
+  100% { transform: translateX(240%) skewX(-15deg); }
 }
 
-.animate-peek-in {
-  animation: peek-in 0.5s ease-out both;
+.animate-shimmer {
+  animation: shimmer-sweep 3.2s ease-in-out infinite;
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .network-bg-grid,
+  .network-bg-grid-dark,
   .network-bg-node,
   .network-bg-line,
-  .hero-photo-kenburns,
   .hero-glow,
-  .hero-float,
   .animate-fade-up,
-  .animate-showcase-in,
-  .animate-showcase-frame-in,
-  .animate-peek-in {
+  .animate-spark,
+  .animate-shimmer,
+  [data-printer-anim] {
     animation: none !important;
   }
 }

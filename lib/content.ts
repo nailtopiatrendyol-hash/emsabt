@@ -321,6 +321,19 @@ export const printerModels: PrinterModel[] = [
   { model: "Lexmark CS730de", image: "/products/cs730de.jpg", type: "Renkli Yazıcı", tier: "Yüksek Hacimli Departman" },
 ];
 
+/* Hero'daki ürün dizilimi için soldan sağa küçükten büyüğe, ortada
+   en yüksek hacimli modelle "silüet" oluşturacak sıralama. */
+export const heroLineup: PrinterModel[] = [
+  printerModels[0], // MX331adn - Küçük Ofis
+  printerModels[1], // MS431dw - Küçük Ofis
+  printerModels[4], // MS531dw - Orta Ölçekli
+  printerModels[5], // CS632dwe - Orta Ölçekli
+  printerModels[7], // CS730de - Yüksek Hacimli (merkez, en uzun)
+  printerModels[6], // CX635adwe - Orta Ölçekli
+  printerModels[3], // CX431adw - Küçük Ofis
+  printerModels[2], // CS431dw - Küçük Ofis
+];
+
 export const supportedBrands = [
   "Lexmark",
   "Xerox",

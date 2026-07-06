@@ -12,18 +12,45 @@ const EDGES = [
   [12, 13], [13, 14], [14, 15], [15, 16], [16, 17], [11, 17],
 ] as const;
 
-export function NetworkBackground({ className }: { className?: string }) {
+export function NetworkBackground({
+  className,
+  variant = "red-on-dark",
+}: {
+  className?: string;
+  variant?: "red-on-dark" | "black-on-red";
+}) {
+  const dark = variant === "black-on-red";
+  const lineFrom = dark ? "rgba(23,24,28,0.75)" : "var(--color-red-bright)";
+  const lineTo = dark ? "rgba(23,24,28,0.15)" : "var(--color-red)";
+  const nodeFill = dark ? "var(--color-ink-panel)" : "var(--color-red-bright)";
+  const gradientId = dark ? "netLineDark" : "netLine";
+
   return (
     <div className={`pointer-events-none absolute inset-0 overflow-hidden ${className ?? ""}`}>
-      <div className="network-bg-grid absolute inset-0" />
-      <div
-        className="hero-glow absolute -left-1/4 top-0 h-[60%] w-[60%] rounded-full opacity-30 blur-3xl"
-        style={{ background: "radial-gradient(circle, var(--color-red) 0%, transparent 70%)" }}
-      />
-      <div
-        className="hero-glow absolute -right-1/4 bottom-0 h-[55%] w-[55%] rounded-full opacity-20 blur-3xl"
-        style={{ background: "radial-gradient(circle, var(--color-red-bright) 0%, transparent 70%)", animationDelay: "-7s" }}
-      />
+      <div className={dark ? "network-bg-grid-dark absolute inset-0" : "network-bg-grid absolute inset-0"} />
+      {dark ? (
+        <>
+          <div
+            className="hero-glow absolute -left-1/4 top-0 h-[60%] w-[60%] rounded-full opacity-25 blur-3xl"
+            style={{ background: "radial-gradient(circle, var(--color-ink-panel) 0%, transparent 70%)" }}
+          />
+          <div
+            className="hero-glow absolute -right-1/4 bottom-0 h-[55%] w-[55%] rounded-full opacity-20 blur-3xl"
+            style={{ background: "radial-gradient(circle, var(--color-night) 0%, transparent 70%)", animationDelay: "-7s" }}
+          />
+        </>
+      ) : (
+        <>
+          <div
+            className="hero-glow absolute -left-1/4 top-0 h-[60%] w-[60%] rounded-full opacity-30 blur-3xl"
+            style={{ background: "radial-gradient(circle, var(--color-red) 0%, transparent 70%)" }}
+          />
+          <div
+            className="hero-glow absolute -right-1/4 bottom-0 h-[55%] w-[55%] rounded-full opacity-20 blur-3xl"
+            style={{ background: "radial-gradient(circle, var(--color-red-bright) 0%, transparent 70%)", animationDelay: "-7s" }}
+          />
+        </>
+      )}
       <svg
         viewBox="0 0 1000 650"
         preserveAspectRatio="xMidYMid slice"
@@ -31,9 +58,9 @@ export function NetworkBackground({ className }: { className?: string }) {
         aria-hidden="true"
       >
         <defs>
-          <linearGradient id="netLine" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="var(--color-red-bright)" stopOpacity="0.55" />
-            <stop offset="1" stopColor="var(--color-red)" stopOpacity="0.15" />
+          <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor={lineFrom} stopOpacity={dark ? 1 : 0.55} />
+            <stop offset="1" stopColor={lineTo} stopOpacity={dark ? 1 : 0.15} />
           </linearGradient>
         </defs>
         {EDGES.map(([a, b], i) => {
@@ -46,8 +73,8 @@ export function NetworkBackground({ className }: { className?: string }) {
               y1={y1}
               x2={x2}
               y2={y2}
-              stroke="url(#netLine)"
-              strokeWidth="1"
+              stroke={`url(#${gradientId})`}
+              strokeWidth={dark ? 1.4 : 1}
               className="network-bg-line"
               style={{ animationDelay: `${(i % 6) * -0.6}s` }}
             />
@@ -58,8 +85,8 @@ export function NetworkBackground({ className }: { className?: string }) {
             key={i}
             cx={x}
             cy={y}
-            r="3.2"
-            fill="var(--color-red-bright)"
+            r={dark ? 3.6 : 3.2}
+            fill={nodeFill}
             className="network-bg-node"
             style={{ animationDelay: `${(i % 5) * -0.9}s` }}
           />
