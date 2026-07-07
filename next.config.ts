@@ -1,13 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* Cloudflare Pages preview: static export (no Node server needed).
-     Remove `output: "export"` and `images.unoptimized` when moving to a
-     Node host (e.g. Hostinger) that can run `next start`. */
-  output: "export",
-  images: {
-    unoptimized: true,
-  },
+  /* Vercel runs this as a full Next.js app (no static export needed) —
+     next/image optimization works natively there. */
 };
 
 export default nextConfig;
